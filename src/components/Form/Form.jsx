@@ -1,20 +1,27 @@
 import { nanoid } from 'nanoid';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/actions';
 
 const Form = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts);
+  const findDuplicate = contacts.some(contact => contact.name === name);
 
   const handleSubmit = e => {
     e.preventDefault();
     const newContact = { id: nanoid(), name, number };
-    dispatch(addContact(newContact));
-    // e.currentTarget.reset();
-    setName('');
-    setNumber('');
+
+    if (findDuplicate) {
+      alert(`${name} is already in contacts!`);
+    } else {
+      dispatch(addContact(newContact));
+      // e.currentTarget.reset();
+      setName('');
+      setNumber('');
+    }
   };
 
   return (
