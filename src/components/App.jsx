@@ -1,5 +1,4 @@
 import ContactList from './ContactList/ContactList';
-
 import Form from './Form/Form';
 
 export const App = () => {
@@ -10,3 +9,16 @@ export const App = () => {
     </div>
   );
 };
+
+// redux
+// import ContactList from './ContactList/ContactList';
+// import Form from './Form/Form';
+
+// export const App = () => {
+//   return (
+//     <div>
+//       <Form />
+//       <ContactList />
+//     </div>
+//   );
+// };
