@@ -1,14 +1,15 @@
 import Filter from 'components/Filter/Filter';
-import { deleteContact } from 'components/reduxToolkit/taskSlice';
+import { deleteContact } from 'reduxToolkit/taskSlice';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ButtonLi, ListLi, ListUl } from './ContactList.styled';
 
 const ContactList = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(state => state.contacts.contacts);
   //console.log(contacts);
-  const filter = useSelector(state => state.filter);
-
+  const filter = useSelector(state => state.filter.value);
+  // console.log(useSelector(state => state.filter));
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
@@ -21,21 +22,21 @@ const ContactList = () => {
     <div>
       <Filter />
       {filteredContacts.length > 0 ? (
-        <ul>
+        <ListUl>
           {filteredContacts.map(el => (
-            <li key={el.id}>
+            <ListLi key={el.id}>
               {el.name}:{el.number}
-              <button
+              <ButtonLi
                 type="button"
                 onClick={() => {
                   handleDelete(el.id);
                 }}
               >
                 Delete
-              </button>
-            </li>
+              </ButtonLi>
+            </ListLi>
           ))}
-        </ul>
+        </ListUl>
       ) : (
         <p>No contacts.</p>
       )}

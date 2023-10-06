@@ -1,14 +1,15 @@
-import { addContact } from 'components/reduxToolkit/taskSlice';
+import { addContact } from 'reduxToolkit/taskSlice';
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button, Form } from './Form.styled';
 
-const Form = () => {
+const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts);
-  console.log(contacts);
+  const contacts = useSelector(state => state.contacts.contacts);
+
   const findDuplicate = contacts.some(contact => contact.name === name);
 
   const handleSubmit = e => {
@@ -24,7 +25,7 @@ const Form = () => {
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <input
         type="text"
         value={name}
@@ -43,12 +44,12 @@ const Form = () => {
           setNumber(e.target.value);
         }}
       ></input>
-      <button type="submit">Add contact</button>
-    </form>
+      <Button type="submit">Add contact</Button>
+    </Form>
   );
 };
 
-export default Form;
+export default ContactForm;
 
 // redux
 // import { nanoid } from 'nanoid';
